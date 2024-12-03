@@ -197,21 +197,3 @@ int main() {
 
     return 0;
 }
-
-
-
-    /*try{
-        Stack<int> s(5);
-        s.push(10);
-        s.push(20);
-        s.pop();
-        s.push(30);
-        s.push(40);
-        s.pop();
-        s.push(50);
-        s.push(60);
-        s.display();
-    } catch (const exception &e) {
-        cout << e.what() << endl;
-    }
-    cout << "*************************************End Question1*************************************" << endl;*/
