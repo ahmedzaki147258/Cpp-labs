@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <termios.h>
 #include <unistd.h>
 #include <limits>
@@ -31,6 +30,23 @@ void setColor(int color) {
     }
 }
 
+void simulateKeyPress(const string &key) {
+    string command = "xdotool key " + key;
+    system(command.c_str());
+}
+
+void timerOut(){
+    clock_t start = clock();
+    while (true) {
+        clock_t now = clock();
+        double elapsed_time = double(now - start) / CLOCKS_PER_SEC;
+        if (elapsed_time >= 1.5) { // 1.5 second
+            simulateKeyPress("A");
+            break;
+        }
+    }
+}
+
 struct Employee {
     string name;
     int netSalary;
@@ -58,7 +74,7 @@ public:
         this->size = size;
         items = new T[size];
         top = -1;
-        ++count;
+        count++;
     }
 
     void push(T item) {
@@ -90,7 +106,7 @@ public:
 
     ~Stack() {
         delete[] items;
-        --count;
+        count--;
     }
 };
 
@@ -117,7 +133,7 @@ void displayMenu(int selectedOption) {
     setColor(0);
 }
 
-int main() {
+int main(){
      try{
         Stack<int> s(5);
         s.push(10);
@@ -135,10 +151,10 @@ int main() {
     cout << "***************************** End Stack *****************************" << endl;
 
     Stack<float> f1(1);
-    cout << "Number of created object f1: " << Stack<float>::getCounter() << " objects."<< endl;
+    cout << "Number of created object after f1: " << Stack<float>::getCounter() << " objects."<< endl;
 
     Stack<float> f2(1);
-    cout << "Number of created object f2: " << Stack<float>::getCounter() << " objects."<< endl;
+    cout << "Number of created object after f2: " << Stack<float>::getCounter() << " objects."<< endl;
     cout << "***************************** End Static Method *****************************" << endl;
 
     int n;
@@ -154,6 +170,7 @@ int main() {
             flag=false;
         }
     }
+    flag=true;
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear newline char
     Stack<Employee> employeeStack(n);
 
@@ -168,22 +185,35 @@ int main() {
         } else if (ch == ENTER) {
             system("clear");
             if (selectedOption == 0) { // push
-                Employee e;
+                 Employee e;
                 cout << "Enter Employee Name: ";
                 getline(cin, e.name); // allow spaces
                 cout << "Enter Employee Salary: ";
-                cin >> e.netSalary;
+                bool flag = true; // reset flag for salary input validation
+                while (flag) {
+                    cin >> e.netSalary;
+                    if (cin.fail() || e.netSalary <= 0) {
+                        cin.clear(); // clear the error flag
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear invalid input
+                        cout << "Invalid input. Enter Employee salary: ";
+                    } else {
+                        flag = false;
+                    }
+                }
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear newline char
 
                 try {
                     employeeStack.push(e);
                     cout << "Employee added!" << endl;
+                    timerOut();
                 } catch (const exception &e) {
                     cout << e.what() << endl;
                 }
             } else if (selectedOption == 1) { // pop
                 try {
                     Employee e = employeeStack.pop();
-                    cout << "Employee removed: " << e.name << ", Salary: " << e.netSalary << endl;
+                    cout << "Employee removed: " << e.name << ", Salary: " << e.netSalary << " successfully. " << endl;
+                    timerOut();
                 } catch (const exception &e) {
                     cout << e.what() << endl;
                 }
