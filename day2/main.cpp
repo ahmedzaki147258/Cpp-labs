@@ -60,15 +60,6 @@ private:
     int size;
     static int count;
 
-    void printEmployee(const Employee &emp, int index) const {
-        cout << "Employee #" << index + 1 << " Name: " << emp.name << " - Salary: " << emp.netSalary << endl;
-    }
-
-    template<typename U>
-    void printItem(const U &item, int index) const {
-        cout << "Number #" << index + 1 << ": " << item << endl;
-    }
-
 public:
     Stack(int size) {
         this->size = size;
@@ -95,8 +86,11 @@ public:
 
         cout << "Stack data:" << endl;
         for (int i = top; i >= 0; i--) {
-            if constexpr (is_same_v<T, Employee>) printEmployee(items[i], i);
-            else printItem(items[i], i);
+            if constexpr (is_same_v<T, Employee>) {
+                cout << "Employee #" << i+1 << " Name: " << items[i].name << " - Salary: " << items[i].netSalary << endl;
+            } else {
+                cout << "Number #" << i+1 << ": " << items[i] << endl;
+            }
         }
     }
 
