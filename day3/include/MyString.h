@@ -17,6 +17,30 @@ void myStringCopy(char destination[], char source[]){
     }
     destination[i] = '\0';
 }
+int myStringCompare(char str1[], char str2[]){
+    if(myStringLength(str1) > myStringLength(str2)){
+        return 1;
+    } else if(myStringLength(str1) < myStringLength(str2)){
+        return -1;
+    } else {
+        for(int i=0;i<myStringLength(str1);i++){
+            if(str1[i] > str2[i]){
+                return 1;
+            } else if(str1[i] < str2[i]){
+                return -1;
+            }
+        }
+    }
+    return 0;
+}
+void myStringConcat(char s1[], char s2[]){
+    int i = myStringLength(s1), j = 0;
+    while(s2[j] != '\0'){
+        s1[i] = s2[j];
+        i++; j++;
+    }
+    s1[i] = '\0';
+}
 
 class MyString{
     char *str;
@@ -26,13 +50,11 @@ public:
         str = new char[1];
         str[0] = '\0';
     }
-
-    MyString(char *val){
-        int length = myStringLength(val);
+    MyString(char *s){
+        int length = myStringLength(s);
         str = new char[length + 1];
-        myStringCopy(str, val);
+        myStringCopy(str, s);
     }
-
     MyString(MyString &source){
         int length = myStringLength(source.str);
         str = new char[length + 1];
@@ -46,9 +68,15 @@ public:
         myStringCopy(str, source.str);
         return *this;
     }
+    int operator==(MyString &source) {
+        return myStringCompare(str, source.str);
+    }
+    MyString operator+(const MyString& source){
+        myStringConcat(str, source.str);
+        return str;
+    }
 
     void print(){ cout << str << endl; }
-
     ~MyString() { delete[] str; }
 };
 

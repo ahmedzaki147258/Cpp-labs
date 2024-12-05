@@ -179,21 +179,21 @@ int main()
     c7.display();
     cout << endl << "*************************************End Question1*************************************" << endl;
 
-    // int n;
-    // cout << "Enter length of array: ";
-    // cin >> n;
-    // int *ptr = new int[n];
-    // for(int i=0;i<n;i++){
-    //     cout << "Enter element #" << i+1 << ": ";
-    //     cin >> ptr[i];
-    // }
+    int n;
+    cout << "Enter length of array: ";
+    cin >> n;
+    int *ptr = new int[n];
+    for(int i=0;i<n;i++){
+        cout << "Enter element #" << i+1 << ": ";
+        cin >> ptr[i];
+    }
 
-    // cout << endl << "Display array:" << endl;
-    // for(int i=0;i<n;i++){
-    //     cout << "element #" << i+1 << ": " << ptr[i] << endl;
-    // }
-    // delete[] ptr;
-    // cout << endl << "*************************************End Question2*************************************" << endl;
+    cout << endl << "Display array:" << endl;
+    for(int i=0;i<n;i++){
+        cout << "element #" << i+1 << ": " << ptr[i] << endl;
+    }
+    delete[] ptr;
+    cout << endl << "*************************************End Question2*************************************" << endl;
 
     int num1 = 5, num2 = 6;
     cout << "result of swap by value" << endl;

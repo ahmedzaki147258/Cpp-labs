@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1733402121 source:/home/azaki/c++ labs/day4/main.cpp
+	<iostream>
+	"graphics.h"
+	"./include/Picture.h"
+
+1733403480 /home/azaki/c++ labs/day4/include/Picture.h
+	"graphics.h"
+

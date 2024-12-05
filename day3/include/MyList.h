@@ -31,11 +31,15 @@ public:
         current++;
     }
 
-    void push(T data, int index){
-        if (index == capacity)
-            push(data);
-        else
-            arr[index] = data;
+    void push(int index, T data){
+        if (index < 0 || index > current) {
+            throw out_of_range("Index out of range");
+        }
+        if (current == capacity) expand();
+        for (int i = current; i > index; i--) {
+            arr[i] = arr[i-1];
+        }
+        arr[index] = data;
     }
 
     T get(int index){
@@ -44,6 +48,16 @@ public:
     }
 
     void pop() { current--; }
+    void pop(int index) {
+        if (index < 0 || index >= current) {
+            throw out_of_range("Index out of range");
+        }
+        for (int i = index; i < current-1; i++) {
+            arr[i] = arr[i+1];
+        }
+        current--;
+    }
+
     int getSize() { return current; }
     int getcapacity() { return capacity; }
     void display(){
@@ -51,6 +65,24 @@ public:
             cout << arr[i] << " ";
         }
         cout << endl;
+    }
+
+    void clear(){
+        delete[] arr;
+        arr = new T[1];
+        capacity = 1;
+        current = 0;
+    }
+
+    MyList<T>& operator=(MyList<T> &l) {
+        delete[] arr;
+        capacity = l.capacity;
+        current = l.current;
+        arr = new T[l.capacity];
+        for (int i=0; i<current; i++) {
+            arr[i] = l.arr[i];
+        }
+        return *this;
     }
 
     ~MyList() { delete[] arr; }

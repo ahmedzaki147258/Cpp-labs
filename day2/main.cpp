@@ -83,7 +83,6 @@ public:
         for (int i=0; i<4; i++) {
             ptr[i] = i+1;
         }
-        //ptr = s.ptr;
         count++;
     }
 
@@ -135,7 +134,6 @@ public:
         for (int i=0; i<4; i++) {
             ptr[i] = i+1;
         }
-        //ptr = s.ptr;
         return *this;
     }
 
@@ -197,17 +195,13 @@ int main(){
 
         cout << "\nf :";
         viewContentByReference(f);
-        //f.display();
 
         f.push(70);
         cout << "\nf after update: ";
         viewContentByReference(f);
-        //f.display();
 
         cout << "\ns after update: ";
         viewContentByReference(s);
-        //s.display();
-
     } catch (const exception &e) {
         cout << e.what() << endl;
     }

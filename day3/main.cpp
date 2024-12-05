@@ -1,34 +1,38 @@
 #include <iostream>
-#include "MyList.h"
-#include "MyString.h"
+#include "./include/MyList.h"
+#include "./include/MyString.h"
 
 using namespace std;
-
 int main(){
-    MyList<int> v;
-    v.push(10);
-    v.push(20);
-    v.push(30);
-    v.push(40);
-    v.push(50);
-
-    cout << "MyList size: " << v.getSize() << endl;
-    cout << "MyList capacity: " << v.getcapacity() << endl;
-
-    cout << "MyList elements: ";
-    v.display();
-    v.push(100, 1);
-
-    cout << "\nMyList elements after update: ";
-    v.display();
-
-    v.pop();
-    cout << "\nMyList size after pop: " << v.getSize() << endl;
-    cout << "MyList elements after pop: ";
-    v.display();
-
     try {
-        cout << "MyList element: " << v.get(9) << endl;
+        MyList<int> v;
+        v.push(10);
+        v.push(20);
+        v.push(30);
+        v.push(40);
+        v.push(50);
+
+        cout << "MyList size: " << v.getSize() << endl;
+        cout << "MyList capacity: " << v.getcapacity() << endl;
+
+        cout << "MyList elements: ";
+        v.display();
+        v.push(1, 100);
+
+        cout << "\nMyList elements after insert: ";
+        v.display();
+
+        v.pop();
+        v.pop(2);
+        cout << "\nMyList size after pop: " << v.getSize() << endl;
+        cout << "MyList elements after pop: ";
+        v.display();
+        cout << "MyList element: " << v.get(2) << endl;
+
+        MyList<int> l;
+        l=v;
+        cout << "list l elements after =operator overloading: ";
+        v.display();
     } catch (const exception &e) {
         cout << e.what() << endl;
     }
@@ -40,6 +44,10 @@ int main(){
     s1.print();
     s2.print();
     s3.print();
+    int compate = s1==s2;
+    cout << "compare: " << compate << endl;
+    cout << "concat: ";
+    (s1+" "+s2).print();
     cout << "***************************** End String *****************************" << endl;
 
     return 0;
