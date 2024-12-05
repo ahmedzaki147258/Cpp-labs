@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1733350931 source:/media/azaki/New Volume/iti/c++ project/c++ labs/day3/main.cpp
+	<iostream>
+	"MyList.h"
+	"MyString.h"
+
+1733348052 /media/azaki/New Volume/iti/c++ project/c++ labs/day3/include/MyList.h
+	<iostream>
+
+1733351302 /media/azaki/New Volume/iti/c++ project/c++ labs/day3/include/MyString.h
+	<iostream>
+

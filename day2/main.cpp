@@ -58,6 +58,7 @@ private:
     T *items;
     int top;
     int size;
+    int *ptr;
     static int count;
 
 public:
@@ -65,6 +66,24 @@ public:
         this->size = size;
         items = new T[size];
         top = -1;
+        ptr=new int[3];
+        ptr[0]=1;ptr[1]=2;ptr[2]=3;
+        count++;
+    }
+
+   Stack(Stack &s) {
+        size = s.size;
+        top = s.top;
+        items = new T[size];
+        for (int i = 0; i <= top; i++) {
+            items[i] = s.items[i];
+        }
+
+        ptr = new int[4];
+        for (int i=0; i<4; i++) {
+            ptr[i] = i+1;
+        }
+        //ptr = s.ptr;
         count++;
     }
 
@@ -89,7 +108,12 @@ public:
             if constexpr (is_same_v<T, Employee>) {
                 cout << "Employee #" << i+1 << " Name: " << items[i].name << " - Salary: " << items[i].netSalary << endl;
             } else {
-                cout << "Number #" << i+1 << ": " << items[i] << endl;
+                cout << "Number #" << i+1 << ": " << items[i] << "\t";
+                cout << "array: ";
+                for(int j=0;j<4;j++){
+                    cout << this->ptr[j] << "  ";
+                }
+                cout << endl;
             }
         }
     }
@@ -98,14 +122,41 @@ public:
         return count;
     }
 
+    Stack& operator=(Stack &s) {
+        delete[] items;
+        delete[] ptr;
+        size = s.size;
+        top = s.top;
+        items = new T[size];
+        for (int i=0; i<=top; i++) {
+            items[i] = s.items[i];
+        }
+        ptr = new int[4];
+        for (int i=0; i<4; i++) {
+            ptr[i] = i+1;
+        }
+        //ptr = s.ptr;
+        return *this;
+    }
+
     ~Stack() {
+        delete[] ptr;
         delete[] items;
         count--;
     }
 };
-
 template <typename T>
 int Stack<T>::count = 0;
+
+template <typename T>
+void viewContentByReference(Stack<T> &x){
+    x.display();
+}
+
+template <typename T>
+void viewContentByValue(Stack<T> x){
+    x.display();
+}
 
 void displayMenu(int selectedOption) {
     system("clear");
@@ -139,6 +190,24 @@ int main(){
         s.push(50);
         s.push(60);
         s.display();
+
+        Stack<int> f(s); // copy constructor
+        //Stack<int> f(5);
+        //f=s; // assignment operator
+
+        cout << "\nf :";
+        viewContentByReference(f);
+        //f.display();
+
+        f.push(70);
+        cout << "\nf after update: ";
+        viewContentByReference(f);
+        //f.display();
+
+        cout << "\ns after update: ";
+        viewContentByReference(s);
+        //s.display();
+
     } catch (const exception &e) {
         cout << e.what() << endl;
     }

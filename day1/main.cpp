@@ -65,10 +65,74 @@ public:
         }
     }
 
+    Complex operator+(Complex c){
+        Complex b;
+        b.real = real + c.real;
+        b.imaginary = imaginary + c.imaginary;
+        return b;
+    }
+    Complex operator-(Complex c){
+        Complex b;
+        b.real = real - c.real;
+        b.imaginary = imaginary - c.imaginary;
+        return b;
+    }
+    Complex operator+(float c){
+        Complex b;
+        b.real = real + c;
+        b.imaginary = imaginary;
+        return b;
+    }
+    Complex operator-(float c){
+        Complex b;
+        b.real = real - c;
+        b.imaginary = imaginary;
+        return b;
+    }
+    bool operator==(Complex c){
+        return (real == c.real && imaginary == c.imaginary);
+    }
+    Complex operator+=(Complex c) {
+        real += c.real;
+        imaginary += c.imaginary;
+        return *this;
+    }
+    Complex operator++() {
+        ++real;
+        return *this;
+    }
+    Complex operator--() {
+        --real;
+        return *this;
+    }
+    Complex operator++(int) {
+        Complex temp = *this;
+        real++;
+        return temp;
+    }
+    Complex operator--(int) {
+        Complex temp = *this;
+        real--;
+        return temp;
+    }
+
     ~Complex(){
-        cout << "End of object" << endl;
+        // cout << "End of object" << endl;
     }
 };
+
+Complex operator+(float x, Complex c){
+    Complex b;
+    b.setReal(c.getReal() + x);
+    b.setImaginary(c.getImaginary());
+    return b;
+}
+Complex operator-(float x, Complex c){
+    Complex b;
+    b.setReal(x - c.getReal());
+    b.setImaginary(c.getImaginary());
+    return b;
+}
 
 int main()
 {
@@ -115,21 +179,21 @@ int main()
     c7.display();
     cout << endl << "*************************************End Question1*************************************" << endl;
 
-    int n;
-    cout << "Enter length of array: ";
-    cin >> n;
-    int *ptr = new int[n];
-    for(int i=0;i<n;i++){
-        cout << "Enter element #" << i+1 << ": ";
-        cin >> ptr[i];
-    }
+    // int n;
+    // cout << "Enter length of array: ";
+    // cin >> n;
+    // int *ptr = new int[n];
+    // for(int i=0;i<n;i++){
+    //     cout << "Enter element #" << i+1 << ": ";
+    //     cin >> ptr[i];
+    // }
 
-    cout << endl << "Display array:" << endl;
-    for(int i=0;i<n;i++){
-        cout << "element #" << i+1 << ": " << ptr[i] << endl;
-    }
-    delete[] ptr;
-    cout << endl << "*************************************End Question2*************************************" << endl;
+    // cout << endl << "Display array:" << endl;
+    // for(int i=0;i<n;i++){
+    //     cout << "element #" << i+1 << ": " << ptr[i] << endl;
+    // }
+    // delete[] ptr;
+    // cout << endl << "*************************************End Question2*************************************" << endl;
 
     int num1 = 5, num2 = 6;
     cout << "result of swap by value" << endl;
@@ -148,6 +212,26 @@ int main()
     cout << "num1: " << num1 << endl;
     cout << "num2: " << num2 << endl;
     cout << "*************************************End Question3*************************************" << endl;
+
+    c5.display();
+    c6.display();
+    c7 = c5+c6;
+    c7 = c5-c6;
+    c7 = c5+6.2;
+    c7 = c5-6.2;
+    c7 = 6.2+c5;
+    c7 = 6.2-c5;
+   
+    bool f = c7==c7;
+    cout << "Is c6 equal c7: " << f << endl;
+    c7 += c6;
+    ++c7;
+    c7++;
+    --c7;
+    c7--;
+    c7.display();
+    cout << "*************************************End operator overloading*************************************" << endl;
+
     return 0;
 }
 
