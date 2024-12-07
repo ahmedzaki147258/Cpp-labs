@@ -177,7 +177,7 @@ void displayMenu(int selectedOption) {
 }
 
 int main(){
-     try{
+    /*try{
         Stack<int> s(5);
         s.push(10);
         s.push(20);
@@ -205,7 +205,7 @@ int main(){
     } catch (const exception &e) {
         cout << e.what() << endl;
     }
-    cout << "***************************** End Stack *****************************" << endl;
+    cout << "***************************** End Stack *****************************" << endl;*/
 
     Stack<float> f1(1);
     cout << "Number of created object after f1: " << Stack<float>::getCounter() << " objects."<< endl;
@@ -242,11 +242,11 @@ int main(){
         } else if (ch == ENTER) {
             system("clear");
             if (selectedOption == 0) { // push
-                 Employee e;
+                Employee e;
                 cout << "Enter Employee Name: ";
                 getline(cin, e.name); // allow spaces
                 cout << "Enter Employee Salary: ";
-                bool flag = true; // reset flag for salary input validation
+                bool flag = true;
                 while (flag) {
                     cin >> e.netSalary;
                     if (cin.fail() || e.netSalary <= 0) {
